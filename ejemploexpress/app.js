@@ -27,9 +27,21 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Conexión a MongoDB con Mongoose
+require('./lib/connectMongoose');
+
+// Modelos
+// Los requiero solo para que mongoose los conozca
+// al iniciar la aplicación
+require('./models/Agente');
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
+
+// API V1
+app.use('/api/v1/users', require('./routes/api/v1/users'));
+app.use('/api/v1/agentes', require('./routes/api/v1/agentes'));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -45,6 +57,12 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
+
+    if (req.path.indexOf('/api/') === 0) {
+      res.json({ok: false, error: err});
+      return;
+    }
+
     res.render('error', {
       message: err.message,
       error: err
@@ -56,6 +74,12 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
+
+  if (req.path.indexOf('/api/') === 0) {
+    res.json({ok: false, error: err});
+    return;
+  }
+
   res.render('error', {
     message: err.message,
     error: {}

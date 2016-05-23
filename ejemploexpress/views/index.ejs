@@ -7,5 +7,24 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+
+    <h3>Incluir valores</h3>
+    <p><%= nombre %></p>
+
+    <h3>Sin escapar</h3>
+    <p><%- sinEscapar %></p>
+
+    <h3>Condiciones</h3>
+    <% if (condicion.estado) { %>
+      <p><%= condicion.segundo %> es par</p>
+    <% } else { %>
+      <p><%= condicion.segundo %> es impar</p>
+    <% } %>
+
+    <h3>Incluir listas</h3>
+    <% users.forEach(function(user) { %>
+      <p>Usuario: <%= user.name %></p>
+    <% }); %>
+
   </body>
 </html>
