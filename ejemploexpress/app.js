@@ -34,6 +34,7 @@ require('./lib/connectMongoose');
 // Los requiero solo para que mongoose los conozca
 // al iniciar la aplicación
 require('./models/Agente');
+require('./models/User');
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
