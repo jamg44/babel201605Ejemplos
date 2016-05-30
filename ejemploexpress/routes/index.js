@@ -17,6 +17,13 @@ router.get('/', function(req, res, next) {
     users: [{name: 'Smith'}, {name: 'Jones'}, {name: 'Brown'}]
   });
   //next(new Error('error fatal de la muerte'))
+
+  // matar un worker
+  if (req.query.muere) {
+    process.exit();
+  }
+
+
 });
 
 // Ejemplo de parametros en ruta y en query-string
@@ -37,6 +44,17 @@ router.post('/', function (req, res) {
   console.log('req.body', req.body);
 
   res.send('el body tiene un parametro price ' + req.body.price);
+});
+
+router.get('/date', (req, res) => {
+
+  var d = new Date();
+
+  console.log(d);
+  console.log(d.toISOString());
+
+
+  res.send(d);
 });
 
 module.exports = router;

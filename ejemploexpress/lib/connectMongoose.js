@@ -11,3 +11,5 @@ db.once('open', function() {
 });
 
 mongoose.connect('mongodb://localhost/cursonode');
+
+module.exports = db;
